@@ -1,0 +1,26 @@
+.gallery{
+    display:flex;
+    flex-wrap: wrap;
+    gap:30px;
+   
+}
+.photo-card{
+    position:relative;
+    top:70px;
+    left:0;
+    width:350px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.info{
+    display: flex;
+    gap:20px;
+    justify-content:space-between;
+    padding:10px 10px;
+}
+.info-item{
+    text-align:center;
+}
+.photo-card_image{
+    display: block;
+}
