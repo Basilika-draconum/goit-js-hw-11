@@ -1,0 +1,35 @@
+.search-form{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4169E1;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.search-form_input{
+    position: relative;
+    padding: 6px 80px 6px 20px;
+    border-radius:4px;
+    border: none;
+}
+
+.search-form_button{
+    position: relative;
+    top: 0;
+    left: -28px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
