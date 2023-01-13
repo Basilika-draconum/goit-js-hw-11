@@ -7,6 +7,7 @@ const HEADERS = {
 export class PixabayAPIMain {
   currentPage = 1;
   inputValue = null;
+  perPage = 40;
 
   getPixabayApi(inputValue) {
     if (inputValue) {
@@ -22,7 +23,7 @@ export class PixabayAPIMain {
       orientation: 'horizontal',
       safesearch: true,
       page: this.currentPage,
-      per_page: 40,
+      per_page: this.perPage,
     });
     return axios.get(`${BASE_URL}?${params}`);
   }

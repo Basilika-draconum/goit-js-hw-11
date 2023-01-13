@@ -14,10 +14,6 @@ const refs = {
 const pixabayApi = new PixabayAPIMain();
 refs.buttonLoad.style.visibility = 'hidden';
 
-// refs.galleryCards.addEventListener('click', e => {
-//   e.preventDefault();
-// });
-
 refs.searchForm.addEventListener('submit', async e => {
   e.preventDefault();
   refs.buttonLoad.style.visibility = 'hidden';
@@ -29,20 +25,17 @@ refs.searchForm.addEventListener('submit', async e => {
 
   if (inputValue.length && inputValue.trim() !== '') {
     const { data } = await pixabayApi.getPixabayApi(inputValue);
-    Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
 
     if (data.hits.length) {
       createGalleryCardsMarkup(data.hits);
-
-      const { height: cardHeight } = document
-        .querySelector('.gallery')
-        .firstElementChild.getBoundingClientRect();
-
-      window.scrollBy({
-        top: cardHeight * 6,
-        behavior: 'smooth',
-      });
-
+      if (data.totalHits <= pixabayApi.currentPage * pixabayApi.perPage) {
+        refs.buttonLoad.style.visibility = 'hidden';
+        Notiflix.Notify.info(
+          "We're sorry, but you've reached the end of search results."
+        );
+        return;
+      }
+      Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
       refs.buttonLoad.style.visibility = 'visible';
       return;
     }
@@ -57,11 +50,12 @@ refs.buttonLoad.addEventListener('click', async e => {
 
   const { data } = await pixabayApi.getPixabayApi();
   createGalleryCardsMarkup(data.hits);
-  if (data.totalHits >= page * per_page) {
+  if (data.totalHits <= pixabayApi.currentPage * pixabayApi.perPage) {
     refs.buttonLoad.style.visibility = 'hidden';
-    Notiflix.Notify.failure(
+    Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
+    return;
   }
 });
 
