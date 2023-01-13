@@ -10,7 +10,10 @@ export class PixabayAPIMain {
 
   getPixabayApi(inputValue) {
     if (inputValue) {
+      this.currentPage = 1;
       this.inputValue = inputValue;
+    } else {
+      this.currentPage++;
     }
     const params = new URLSearchParams({
       key: HEADERS.key,
@@ -21,7 +24,6 @@ export class PixabayAPIMain {
       page: this.currentPage,
       per_page: 40,
     });
-
     return axios.get(`${BASE_URL}?${params}`);
   }
 }
