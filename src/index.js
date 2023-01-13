@@ -29,9 +29,20 @@ refs.searchForm.addEventListener('submit', async e => {
 
   if (inputValue.length && inputValue.trim() !== '') {
     const { data } = await pixabayApi.getPixabayApi(inputValue);
+    Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
 
     if (data.hits.length) {
       createGalleryCardsMarkup(data.hits);
+
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+
+      window.scrollBy({
+        top: cardHeight * 6,
+        behavior: 'smooth',
+      });
+
       refs.buttonLoad.style.visibility = 'visible';
       return;
     }
